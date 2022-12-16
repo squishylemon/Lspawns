@@ -61,7 +61,8 @@ let RandomSkin = false; // Spawn with a random skin?
 let DefaultSkin = 1; // (Ignore if randomspawn is on) Set number to skin ID.
 // GTA3: https://wiki.gtaconnected.com/Resources/GTA3/PedSkins
 // GTAVC: https://wiki.gtaconnected.com/Resources/GTAVC/PedSkins
-let JoinSpawn = ''; // Insert any of the above options for your game.
+let JoinSpawn = 'FIA'; // Insert any of the above options for your game.
+let RandomSpawn = false;
 let CSpawnCords = new Vec3(0, 0, 500); // Coordinates for custom spawn. (0, 0, 500) will spawn in the middle of the map at height 500.
 let CSpawnRot = 0; // Z-rotation when spawned (ignore if customspawn is false).
 
@@ -71,14 +72,14 @@ let CSpawnRot = 0; // Z-rotation when spawned (ignore if customspawn is false).
 let RandomSkinRespawn = false; // Sets the skin to a random one when respawning.
 let RandomSkinSelective = false // Picks a random skin from the list below.
 let NearbyDeathSpawn = false; // Spawn in the position of the player NearbyDeathSpawnTimeFrame seconds ago.
-let NearbySpawn = true; // Spawn at the closest spawnpoint (spawn points are listed in JoinSpawn settings).
+let NearbySpawn = true; // Spawn a	t the closest spawnpoint (spawn points are listed in JoinSpawn settings).
 let InstantSpawn = false; // Instantly respawns (if fade screen is true, it will fade before spawning).
 let FadeScreen = true; // Fade the screen to black before respawning (makes it nicer).
 let FadeScreenWait = 5; // How long it takes to fade in and out.
 let FadeScreenTime = 5; // How long it takes to respawn (ignore if using instant spawn).
 let FadeScreenColour = toColour(255, 255, 255, 255); // The color the screen fades to. (Red, green, blue, alpha)
 let PlayerSync = 1; // In seconds, how often the player tracker adds all connected players' positions and heading.
-let NearbyDeathSpawnTimeFrame = 15; // How far back does the player respawn in seconds from death?
+let NearbyDeathSpawnTimeFrame = 5; // How far back does the player respawn in seconds from death?
 
 
 //---------TO USE THESE ENABLE RandomSkinSelective---------------

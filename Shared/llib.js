@@ -64,6 +64,7 @@ function getClosestLocation(pos) {
 
 
 function getSpawnLocation(serverGame, JoinSpawn) {
+	
     if (typeof locations[serverGame] != "undefined") {
         let spawnLocation = locations[serverGame].find(location => location.locationId === JoinSpawn);
         if (spawnLocation) {
@@ -130,7 +131,10 @@ function deleteOldPlayerPositions() {
 
     // Get the player positions array for the player ID
     let playerPositionsForPlayer = playerPositions[player.id];
-
+	
+	if (!playerPositionsForPlayer) {
+		return;
+	}
     // Loop through the array of player positions
     for (let playerPosition of playerPositionsForPlayer) {
       // Get the current timestamp
@@ -195,39 +199,6 @@ function getPlayerFromClient(client) {
   return client.player;
 }
 
-function checkServerSettings() {
-  if (serverGame != GAME_GTA_VC && serverGame != GAME_GTA_III) {
-    LemonConsoleError("The Server is not running either GTA III or Vicecity");
-    return;
-  }
-
-  if (NearbyDeathSpawn) {
-    LemonConsoleLog("NearbyDeathSpawn: " + NearbyDeathSpawn);
-  } else if (NearbySpawn) {
-    LemonConsoleLog("NearbySpawn: " + NearbySpawn);
-  } else {
-    LemonConsoleLog("Respawn is JoinSpawn: " + JoinSpawn);
-  }
-
-  LemonConsoleLog("InstantSpawn: " + InstantSpawn);
-  LemonConsoleLog("FadeScreen: " + FadeScreen);
-  LemonConsoleLog("CustomSpawn: " + CustomSpawn);
-
-  if (RandomSkin == true) {
-    LemonConsoleLog("RandomSkin: " + RandomSkin);
-  }
-
-	if (RandomSkinSelective == true) {
-		LemonConsoleLog("RandomSkinSelective: " + RandomSkinSelective);
-	}
-
-  if (CustomSpawn) {
-    LemonConsoleLog("CSpawnCords: " + CSpawnCords);
-    LemonConsoleLog("CSpawnRot: " + CSpawnRot);
-  }
-
-}
-
 function addSkin(gameId, skinId) {
   if (!skinList[gameId]) {
     skinList[gameId] = [];
@@ -268,4 +239,20 @@ function getRandomListSkin(serverGame) {
 
   // Return the skinId as a number
   return Number(randomSkin.skinId);
+}
+
+function getRandomLocation(gameId) {
+  if (!locations[gameId]) {
+    return null;
+  }
+
+  const gameLocations = locations[gameId];
+  const randomIndex = Math.floor(Math.random() * gameLocations.length);
+  const randomLocation = gameLocations[randomIndex];
+  JoinSpawn = randomLocation.locationId;
+
+  return {
+    pos: randomLocation.pos,
+    rot: randomLocation.rot
+  };
 }

@@ -1,12 +1,16 @@
 bindEventHandler("OnResourceStart", thisResource, function (event, resource) {
-	checkServerSettings();
+  if (serverGame != GAME_GTA_VC && serverGame != GAME_GTA_III) {
+    LemonConsoleError("The Server is not running either GTA III or Vicecity");
+    return;
+  }
 });
 
 
 
 addEventHandler("OnPlayerJoined", (event, client) => {
     let skin = DefaultSkin;
-
+	let spawnLocation;
+	
     // If RandomSkin is true, randomly select a skin using the getRandomSkin function
     if (RandomSkin) {
         skin = getRandomSkin();
@@ -27,7 +31,11 @@ addEventHandler("OnPlayerJoined", (event, client) => {
 
     // If serverGame exists in locations, use the getSpawnLocation function to get the SpawnPos and SpawnRot based on the JoinSpawn location ID
     } else if (typeof locations[serverGame] != "undefined") {
-        let spawnLocation = getSpawnLocation(serverGame, JoinSpawn);
+		if (!RandomSpawn) {
+            spawnLocation = getSpawnLocation(serverGame, JoinSpawn);
+		} else {
+			spawnLocation = getRandomLocation(serverGame);
+		}
         if (spawnLocation) {
             SpawnPos = spawnLocation.pos;
             SpawnRot = spawnLocation.rot;
@@ -56,14 +64,17 @@ addEventHandler("onPedWasted", (event, wastedPed, attackerPed, weapon, pedPiece)
   let spawnLocation;
   let skin = wastedPed.skin;
   
-  if (NearbyDeathSpawn) {
+  if (NearbySpawn) {
     // Spawn within 25-50m of the players death
     let closestpos = getClosestLocation(wastedPed.position);
     spawnLocation = getSpawnLocation(serverGame, closestpos);
-  } else if (NearbySpawn) {
+  } else if (NearbyDeathSpawn) {
     // Spawn at the closest Spawnpoint (spawn points range from the examples of joinspawns)
     spawnLocation = getOldestPlayerPosition(client);
-  } else {
+  } else if (RandomSpawn) {
+    // Spawn at the closest Spawnpoint (spawn points range from the examples of joinspawns)
+    spawnLocation = getRandomLocation(serverGame);
+} else {
     // Spawn at the JoinSpawn location
     spawnLocation = getSpawnLocation(serverGame, JoinSpawn);
   }
