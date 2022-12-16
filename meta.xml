@@ -1,0 +1,22 @@
+<meta>
+	<info author="Squishylemon" description="Selectable Spawns" />
+
+	<script src="Shared/llib.js" type="client" language="javascript" />
+	<script src="Shared/llib.js" type="server" language="javascript" />
+	
+	
+	<script src="config.js" type="client" language="javascript" />
+	<script src="config.js" type="server" language="javascript" />
+	
+	
+	<script src="Shared/locations.js" type="client" language="javascript" />
+	<script src="Shared/locations.js" type="server" language="javascript" />
+	
+	
+	<script src="Server/player.js" type="server" language="javascript" />
+	<script src="Server/main.js" type="server" language="javascript" />
+	<script src="Server/com.js" type="server" language="javascript" />
+	
+	
+	<script src="Client/main.js" type="client" language="javascript" />
+</meta>
