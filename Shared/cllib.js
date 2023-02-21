@@ -1,20 +1,22 @@
 let locations = [];
 let skinList = [];
-let ServerName = server.name;
-let ServerGameMode = server.gameMode;
 let playerPositions = [];
-let serverGame = server.game;
-let PlayerName = "muffin";
+let serverGame = gta.game;
+let ServerName;
+let ServerPort;
+let ServerGameMode;
+let PlayerName = "";
 
-function PlayernameChange(newname) {
-	PlayerName = newname;
-}
 
-addNetworkHandler("requestServerName", function(client) {
-  triggerNetworkEvent("receiveServerName", client, ServerName, ServerGameMode, server.port);
+triggerNetworkEvent("requestServerName");
+
+addNetworkHandler("receiveServerName", function(serverName, servergamemode, serverport) {
+   ServerName = serverName;
+   ServerGameMode = servergamemode;
+   ServerPort = serverport;
 });
 
-
+ 
 function LemonConsoleLog(msg) {
   console.log("[LemonsSpawn] " + msg);
 }
@@ -265,28 +267,4 @@ function getRandomLocation(gameId) {
     pos: randomLocation.pos,
     rot: randomLocation.rot
   };
-}
-
-function createDeathBlip(clientid, position) {
-  let tmpBlip = null;
-  let client = getClient(clientid);
-
-
-
-  if (server.game == GAME_GTA_III) {
-    tmpBlip = GTA3DeathBlip;
-  } else if (server.game == GAME_GTA_VC) {
-    tmpBlip = GTAVCDeathBlip;
-  }
-
-    if (LocalBlipOnly) {
-      triggerNetworkEvent("deathBlip", client, tmpBlip);
-    } else {
-      let blip = gta.createBlip(tmpBlip, position, BlipSize, 0);
-
-      setTimeout(function() {
-        destroyElement(blip);
-      }, BlipFadeTime * 1000);
-    }
-  
 }

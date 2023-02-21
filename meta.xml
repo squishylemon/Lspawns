@@ -1,7 +1,11 @@
 <meta>
 	<info author="Squishylemon" description="Selectable Spawns" />
 
-	<script src="Shared/llib.js" type="client" language="javascript" />
+	<script src="Shared/colours.js" type="client" language="javascript" />
+	<script src="Shared/colours.js" type="server" language="javascript" />
+	
+
+	<script src="Shared/cllib.js" type="client" language="javascript" />
 	<script src="Shared/llib.js" type="server" language="javascript" />
 	
 	

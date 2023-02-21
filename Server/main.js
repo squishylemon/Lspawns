@@ -5,9 +5,28 @@ bindEventHandler("OnResourceStart", thisResource, function (event, resource) {
   }
 });
 
+addEventHandler("OnPlayerJoin", function(event, client) {
+  if (JoinMessageEnabled) {
+	PlayernameChange(client.name);
+    messageAllExcept(`${JoinMessage}`, client, JoinMessageColor);
+  }
+});
+
+addEventHandler("onPlayerQuit", function(event, client, disconnectType) {
+  if (DisconnectMessageEnabled) {
+	PlayernameChange(client.name);
+    messageAllExcept(`${DisconnectMessage}`, client, DisconnectMessageColor);
+  }
+});
 
 
 addEventHandler("OnPlayerJoined", (event, client) => {
+	
+	PlayernameChange(client.name);
+	if (ConnectedMessageEnabled) {
+	messageAllExcept(`${ConnectedMessage}`, client, ConnectedMessageColor)
+	}
+	
     let skin = DefaultSkin;
 	let spawnLocation;
 	
@@ -49,7 +68,12 @@ addEventHandler("OnPlayerJoined", (event, client) => {
     }
 
     // Spawn the player using the calculated SpawnPos and SpawnRot
+	
     spawnPlayer(client, SpawnPos, SpawnRot, skin);
+	if  (WelcomeMessageEnabled) {
+	
+	messageClient(WelcomeMessage(), client, WelcomeMessageColor);
+	}
 
     // Fade in the player's camera
     fadeCamera(client, true);
@@ -61,9 +85,23 @@ addEventHandler("onPedWasted", (event, wastedPed, attackerPed, weapon, pedPiece)
   }
 
   let client = getClientFromPlayerElement(wastedPed);
+  let clientid = wastedPed.id;
   let spawnLocation;
   let skin = wastedPed.skin;
+
   
+  if (DeathBlipsEnabled) {
+    
+    
+    // Get the position of the wasted ped
+    const deathPosition = wastedPed.position;
+    // Create the blip
+    createDeathBlip(clientid, deathPosition);
+    
+
+  }
+  
+
   if (NearbySpawn) {
     // Spawn within 25-50m of the players death
     let closestpos = getClosestLocation(wastedPed.position);

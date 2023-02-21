@@ -61,7 +61,7 @@ let RandomSkin = false; // Spawn with a random skin?
 let DefaultSkin = 1; // (Ignore if randomspawn is on) Set number to skin ID.
 // GTA3: https://wiki.gtaconnected.com/Resources/GTA3/PedSkins
 // GTAVC: https://wiki.gtaconnected.com/Resources/GTAVC/PedSkins
-let JoinSpawn = 'FIA'; // Insert any of the above options for your game.
+let JoinSpawn = 'Ocean_Beach'; // Insert any of the above options for your game.
 let RandomSpawn = false;
 let CSpawnCords = new Vec3(0, 0, 500); // Coordinates for custom spawn. (0, 0, 500) will spawn in the middle of the map at height 500.
 let CSpawnRot = 0; // Z-rotation when spawned (ignore if customspawn is false).
@@ -81,6 +81,53 @@ let FadeScreenColour = toColour(255, 255, 255, 255); // The color the screen fad
 let PlayerSync = 1; // In seconds, how often the player tracker adds all connected players' positions and heading.
 let NearbyDeathSpawnTimeFrame = 5; // How far back does the player respawn in seconds from death?
 
+
+//----------------Connection/Disconnection Settings
+
+let DisconnectMessageEnabled = true; // Enable/Disable disconnected messages
+
+let DisconnectMessageColor = Red; // sets the color of the disconnceted message
+
+var DisconnectMessage =()=> `[${ServerName}] ${PlayerName} has disconnected!`; // Message for everyone on the server when a player disconnects
+
+let JoinMessageEnabled = true; // Enable/Disable Join Messages
+
+let JoinMessageColor = Yellow; // sets the color of the join message
+
+var JoinMessage =()=> `[${ServerName}] ${PlayerName} has started to connect to the server!`; // Message for everyone on the server when a player starts to connect
+
+let ConnectedMessageEnabled = true; // Enable/Disable connected messages
+
+let ConnectedMessageColor = Green; // sets the color of the connected message
+
+var ConnectedMessage =()=> `[${ServerName}] ${PlayerName} has fully connected!`; // Message for everyone when the player has fully loaded into the server
+
+let WelcomeMessageEnabled = true; // Enable/Disable the welcome message
+
+let WelcomeMessageColor = Blue; // sets the color of the welcome message
+
+var WelcomeMessage =()=> `Welcome ${PlayerName} to ${ServerName}!`; // Message to the player who just joinned
+
+//----------------DeathBlip Settings
+
+// GTAVC Blips https://wiki.gtaconnected.com/Resources/GTAVC/RadarBlips
+// GTAIII Blips https://wiki.gtaconnected.com/Resources/GTA3/RadarBlips
+
+let DeathBlipsEnabled = true; // Enable the deathblip system
+let LocalBlipOnly = false; // Makes it so only the player who died sees the blip instead of the hole server
+let BlipFadeTime = 15; // Time in seconds before the blip disappears
+let BlipSize = 2; // Size of the blip on the map
+let GTA3DeathBlip = 0; // Icon for the GTA3 Blip
+let GTAVCDeathBlip = 23; // Icon for the GTAVC Blip
+
+
+// ---CopyPate varibles for messages (dont copy // duh.)
+
+// ${ServerName}
+// ${PlayerName}
+// ${ServerGameMode}
+
+//
 
 //---------TO USE THESE ENABLE RandomSkinSelective---------------
 addSkin(GAME_GTA_III, 122); // Adds the Prison Claude skin to select from if your server is running gta3
