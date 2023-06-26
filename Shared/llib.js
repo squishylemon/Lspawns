@@ -89,13 +89,27 @@ function getSpawnLocation(serverGame, JoinSpawn) {
 }
 
 
-function getRandomSkin() {
-    let skin = Math.floor(Math.random() * 78);
-    if (skin >= 26) {
-        skin += 4;
-    }
-    return skin;
+function getRandomSkin(serverGame) {
+  let maxNumber;
+
+  if (serverGame === "GAME_GTA_SA") {
+      maxNumber = 312;
+  } else if (serverGame === "GAME_GTA_III") {
+      maxNumber = 130;
+  } else if (serverGame === "GAME_GTA_VC") {
+      maxNumber = 187;
+  } else {
+      // Default max number if serverGame doesn't match any specified condition
+      maxNumber = 78;
+  }
+
+  let skin = Math.floor(Math.random() * (maxNumber + 1));
+  if (skin >= 26) {
+      skin += 4;
+  }
+  return skin;
 }
+
 
 // Function to get the oldest position from the array
 function getOldestPlayerPosition(client) {
@@ -247,6 +261,12 @@ function getRandomListSkin(serverGame) {
     return DefaultSkin;
   }
 
+  // If the skinId is from the GAME_GTA_SA and its over 312, return nothing and call the LemonConsoleError function
+  if (serverGame === GAME_GTA_SA && randomSkin.skinId > 312) {
+    LemonConsoleError("Invalid skinId for gameId " + serverGame + ": " + randomSkin.skinId);
+    return DefaultSkin;
+  }
+
   // Return the skinId as a number
   return Number(randomSkin.skinId);
 }
@@ -267,9 +287,15 @@ function getRandomLocation(gameId) {
   };
 }
 
-function createDeathBlip(clientid, position) {
+function setCustomCords() {
+  return {
+    pos: CDSpawnCords,
+    rot: CDSpawnRot
+  };
+}
+
+function createDeathBlip(client, position) {
   let tmpBlip = null;
-  let client = getClient(clientid);
 
 
 
@@ -277,6 +303,8 @@ function createDeathBlip(clientid, position) {
     tmpBlip = GTA3DeathBlip;
   } else if (server.game == GAME_GTA_VC) {
     tmpBlip = GTAVCDeathBlip;
+  } else if (server.game == GAME_GTA_SA) {
+    tmpBlip = GTASADeathBlip;
   }
 
     if (LocalBlipOnly) {

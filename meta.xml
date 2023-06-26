@@ -16,11 +16,12 @@
 	<script src="Shared/locations.js" type="client" language="javascript" />
 	<script src="Shared/locations.js" type="server" language="javascript" />
 	
-	
+	<script src="Server/vevents.js" type="server" language="javascript" />
 	<script src="Server/player.js" type="server" language="javascript" />
 	<script src="Server/main.js" type="server" language="javascript" />
 	<script src="Server/com.js" type="server" language="javascript" />
 	
-	
+	<script src="Client/vevents.js" type="client" language="javascript" />
 	<script src="Client/main.js" type="client" language="javascript" />
+	<script src="Client/player.js" type="client" language="javascript" />
 </meta>

@@ -56,12 +56,43 @@
 // Shoreside: https://gamefaqs.gamespot.com/ps2/466217-grand-theft-auto-iii/map/562?raw=1
 // (Unfortunately, I couldn't find a full map for GTA3.)
 
+//FOR GTASA
+//Grove_Street
+//Vinewood_Sign
+//Santos_Police_Station
+//Stadium
+//Pier
+//Santos_Airport
+//Dragons_Casino
+//Venturas_Airport
+//Come-A-Lot_Casino
+//Venturas_Police_Station
+//Clown_Pocket
+//Chapel
+//Pier69
+//Bigear
+//Wangcar
+//San_Ferrio_Police_Station
+//Calton_Heights
+//San_Ferrio_Airport
+//Mount_Chilliad
+//Verdant_Medow_Airport
+//Area_51
+//Bayside
+
+// Map for gtasa if ur like me and have noidea were anything is https://mapgenie.io/grand-theft-auto-san-andreas/maps/san-andreas
+
+let DebugMode = true;
+
+
+
 let CustomSpawn = false; // Are you using a custom spawn?
-let RandomSkin = false; // Spawn with a random skin?
+let RandomSkin = true; // Spawn with a random skin?
 let DefaultSkin = 1; // (Ignore if randomspawn is on) Set number to skin ID.
 // GTA3: https://wiki.gtaconnected.com/Resources/GTA3/PedSkins
 // GTAVC: https://wiki.gtaconnected.com/Resources/GTAVC/PedSkins
-let JoinSpawn = 'Ocean_Beach'; // Insert any of the above options for your game.
+// GTASA: https://wiki.gtaconnected.com/Resources/GTASA/PedSkins
+let JoinSpawn = 'Vinewood_Sign'; // Insert any of the above options for your game.
 let RandomSpawn = false;
 let CSpawnCords = new Vec3(0, 0, 500); // Coordinates for custom spawn. (0, 0, 500) will spawn in the middle of the map at height 500.
 let CSpawnRot = 0; // Z-rotation when spawned (ignore if customspawn is false).
@@ -69,10 +100,11 @@ let CSpawnRot = 0; // Z-rotation when spawned (ignore if customspawn is false).
 // ----------------------------------------------------------------------------
 // Respawn Settings (when you die and respawn)
 
+let CustomDeathSpawn = false; // Enabelds you to set a custom x y z and rot for respawns
 let RandomSkinRespawn = false; // Sets the skin to a random one when respawning.
 let RandomSkinSelective = false // Picks a random skin from the list below.
-let NearbyDeathSpawn = false; // Spawn in the position of the player NearbyDeathSpawnTimeFrame seconds ago.
-let NearbySpawn = true; // Spawn a	t the closest spawnpoint (spawn points are listed in JoinSpawn settings).
+let NearbyDeathSpawn = true; // Spawn in the position of the player NearbyDeathSpawnTimeFrame seconds ago.
+let NearbySpawn = false; // Spawn at the closest spawnpoint (spawn points are listed in JoinSpawn settings).
 let InstantSpawn = false; // Instantly respawns (if fade screen is true, it will fade before spawning).
 let FadeScreen = true; // Fade the screen to black before respawning (makes it nicer).
 let FadeScreenWait = 5; // How long it takes to fade in and out.
@@ -80,6 +112,8 @@ let FadeScreenTime = 5; // How long it takes to respawn (ignore if using instant
 let FadeScreenColour = toColour(255, 255, 255, 255); // The color the screen fades to. (Red, green, blue, alpha)
 let PlayerSync = 1; // In seconds, how often the player tracker adds all connected players' positions and heading.
 let NearbyDeathSpawnTimeFrame = 5; // How far back does the player respawn in seconds from death?
+let CDSpawnCords = new Vec3(0, 0, 500); // Coordinates for custom spawn. (0, 0, 500) will spawn in the middle of the map at height 500.
+let CDSpawnRot = 0; // Z-rotation when spawned (ignore if customspawn is false).
 
 
 //----------------Connection/Disconnection Settings
@@ -108,19 +142,6 @@ let WelcomeMessageColor = Blue; // sets the color of the welcome message
 
 var WelcomeMessage =()=> `Welcome ${PlayerName} to ${ServerName}!`; // Message to the player who just joinned
 
-//----------------DeathBlip Settings
-
-// GTAVC Blips https://wiki.gtaconnected.com/Resources/GTAVC/RadarBlips
-// GTAIII Blips https://wiki.gtaconnected.com/Resources/GTA3/RadarBlips
-
-let DeathBlipsEnabled = true; // Enable the deathblip system
-let LocalBlipOnly = false; // Makes it so only the player who died sees the blip instead of the hole server
-let BlipFadeTime = 15; // Time in seconds before the blip disappears
-let BlipSize = 2; // Size of the blip on the map
-let GTA3DeathBlip = 0; // Icon for the GTA3 Blip
-let GTAVCDeathBlip = 23; // Icon for the GTAVC Blip
-
-
 // ---CopyPate varibles for messages (dont copy // duh.)
 
 // ${ServerName}
@@ -129,6 +150,23 @@ let GTAVCDeathBlip = 23; // Icon for the GTAVC Blip
 
 //
 
+//----------------DeathBlip Settings
+
+// GTAVC Blips https://wiki.gtaconnected.com/Resources/GTAVC/RadarBlips
+// GTAIII Blips https://wiki.gtaconnected.com/Resources/GTA3/RadarBlips
+
+let DeathBlipsEnabled = true; // Enable the deathblip system
+let LocalBlipOnly = false; // Makes it so only the player who died sees the blip instead of the entire server
+let BlipFadeTime = 15; // Time in seconds before the blip disappears
+let BlipSize = 2; // Size of the blip on the map
+let GTA3DeathBlip = 0; // Icon for the GTA3 Blip
+let GTAVCDeathBlip = 23; // Icon for the GTAVC Blip
+let GTASADeathBlip = 23; // Icon for the GTASA Blip
+
+//----------------------Extra Features
+let DropWeaponOnDeath = true; // creates a weapon pickup for the held weapon of the player who died [Experimental]
+
 //---------TO USE THESE ENABLE RandomSkinSelective---------------
 addSkin(GAME_GTA_III, 122); // Adds the Prison Claude skin to select from if your server is running gta3
 addSkin(GAME_GTA_VC, 164); // Adds the Tommy Vercetti (Golfer) skin to select from if your server is running vicecity
+addSkin(GAME_GTA_SA, 0); // Adds the CJ skin to select from if your server is running san andreas

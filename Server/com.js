@@ -1,3 +1,4 @@
+if (DebugMode) {
 addCommandHandler("getpos", function(command, text, client) {
   let player = client.player;
   if (player != null) {
@@ -10,3 +11,4 @@ addCommandHandler("getpos", function(command, text, client) {
 	
   }
 });
+}

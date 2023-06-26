@@ -8,6 +8,8 @@ addNetworkHandler("deathBlip", function(client, blipID) {
     tmpBlip = GTA3DeathBlip;
   } else if (gta.game == GAME_GTA_VC) {
     tmpBlip = GTAVCDeathBlip;
+  } else if (gta.game == GAME_GTA_SA) {
+    tmpBlip = GTASADeathBlip;
   }
 
     let dpos = localPlayer.position;

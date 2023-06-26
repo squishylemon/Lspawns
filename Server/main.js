@@ -1,6 +1,6 @@
 bindEventHandler("OnResourceStart", thisResource, function (event, resource) {
-  if (serverGame != GAME_GTA_VC && serverGame != GAME_GTA_III) {
-    LemonConsoleError("The Server is not running either GTA III or Vicecity");
+  if (serverGame != GAME_GTA_VC && serverGame != GAME_GTA_III && serverGame != GAME_GTA_SA) {
+    LemonConsoleError("The Server is not running either GTA III or Vicecity or San Andreas");
     return;
   }
 });
@@ -79,28 +79,37 @@ addEventHandler("OnPlayerJoined", (event, client) => {
     fadeCamera(client, true);
 });
 
-addEventHandler("onPedWasted", (event, wastedPed, attackerPed, weapon, pedPiece) => {
+addEventHandler("OnPedDeathEx", (event, wastedPed, attackerPed, weapon, pedPiece) => {
+  
   if (!wastedPed.isType(ELEMENT_PLAYER)) {
+    
     return;
   }
-
+  
   let client = getClientFromPlayerElement(wastedPed);
   let clientid = wastedPed.id;
   let spawnLocation;
   let skin = wastedPed.skin;
 
-  
   if (DeathBlipsEnabled) {
     
     
     // Get the position of the wasted ped
     const deathPosition = wastedPed.position;
     // Create the blip
-    createDeathBlip(clientid, deathPosition);
+    createDeathBlip(client, deathPosition);
     
 
   }
   
+  if (DropWeaponOnDeath) {
+    var HeldWeapon = client.weapon;
+    if(HeldWeapon != null) {
+      var DeathDrop = gta.createPickup(HeldWeapon, client.position, 5)
+      DeathDrop.quantity = 1;
+      
+    }
+  }
 
   if (NearbySpawn) {
     // Spawn within 25-50m of the players death
@@ -112,7 +121,10 @@ addEventHandler("onPedWasted", (event, wastedPed, attackerPed, weapon, pedPiece)
   } else if (RandomSpawn) {
     // Spawn at the closest Spawnpoint (spawn points range from the examples of joinspawns)
     spawnLocation = getRandomLocation(serverGame);
-} else {
+} else if (CustomDeathSpawn){
+    // Spawn at the CustomLocation location
+    spawnLocation = setCustomCords();
+  } else {
     // Spawn at the JoinSpawn location
     spawnLocation = getSpawnLocation(serverGame, JoinSpawn);
   }
