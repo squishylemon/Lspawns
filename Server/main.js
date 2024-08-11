@@ -8,14 +8,14 @@ bindEventHandler("OnResourceStart", thisResource, function (event, resource) {
 addEventHandler("OnPlayerJoin", function(event, client) {
   if (JoinMessageEnabled) {
 	PlayernameChange(client.name);
-    messageAllExcept(`${JoinMessage}`, client, JoinMessageColor);
+    messageAllExcept(JoinMessage(), client, JoinMessageColor);
   }
 });
 
 addEventHandler("onPlayerQuit", function(event, client, disconnectType) {
   if (DisconnectMessageEnabled) {
 	PlayernameChange(client.name);
-    messageAllExcept(`${DisconnectMessage}`, client, DisconnectMessageColor);
+    messageAllExcept(DisconnectMessage(), client, DisconnectMessageColor);
   }
 });
 
@@ -24,7 +24,7 @@ addEventHandler("OnPlayerJoined", (event, client) => {
 	
 	PlayernameChange(client.name);
 	if (ConnectedMessageEnabled) {
-	messageAllExcept(`${ConnectedMessage}`, client, ConnectedMessageColor)
+	messageAllExcept(ConnectedMessage(), client, ConnectedMessageColor)
 	}
 	
     let skin = DefaultSkin;
